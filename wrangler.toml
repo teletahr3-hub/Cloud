@@ -1,0 +1,35 @@
+name = "arabic-school"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+# قاعدة البيانات D1 (الطلاب والكورسات والتقدم) - انشئيها بالامر:
+#   npx wrangler d1 create school-db
+# ثم الصقي الـ database_id الذي يظهر هنا. الجداول تنشأ تلقائيا عند اول تشغيل.
+[[d1_databases]]
+binding = "DB"
+database_name = "school-db"
+database_id = "PUT_D1_DATABASE_ID_HERE"
+
+# تخزين الفيديوهات والملفات وصور الاغلفة - انشئيه بالامر:
+#   npx wrangler r2 bucket create school-media
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "school-media"
+
+[vars]
+# اسم المنصة واسم المعلمة (يمكن تغييرهما لاحقا من لوحة التحكم)
+SITE_NAME = "منصة اللغة العربية"
+TEACHER_NAME = ""
+# ايدي المالك على تيليجرام: هو الوحيد الذي يحصل على رمز دخول لوحة التحكم من البوت
+# (لاضافة اكثر من مالك افصلي بينهم بفاصلة)
+ADMIN_TG_IDS = "7323316462"
+# اسم البوت بدون @ (لازرار الربط السريع وصفحة الدخول)
+BOT_USERNAME = ""
+# اختياري: اسم مستخدم للدخول بكلمة مرور بدل تيليجرام (يعمل فقط اذا وضعتِ ADMIN_PASSWORD)
+ADMIN_USER = "admin"
+
+# الاسرار (لا توضع هنا، تضاف بالاوامر):
+#   npx wrangler secret put SESSION_SECRET    نص عشوائي طويل (32 حرفا او اكثر) - مطلوب
+#   npx wrangler secret put BOT_TOKEN         توكن بوت تيليجرام من BotFather - مطلوب (للدخول للوحة)
+#   npx wrangler secret put TG_SECRET         كلمة سر عشوائية للويب هوك (حروف وارقام و - و _ فقط) - مطلوب
+#   npx wrangler secret put ADMIN_PASSWORD    اختياري: دخول احتياطي بكلمة مرور بدل تيليجرام
